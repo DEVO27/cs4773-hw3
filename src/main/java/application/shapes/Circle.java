@@ -5,7 +5,8 @@ public class Circle extends Shape {
 
     public Circle(int radius) {
         this.radius = radius;
-        super.setOrigin(new int[]{0, 0});
+        super.setXCoordinate(0);
+        super.setYCoordinate(0);
         super.setColor(Colors.Blue);
     }
 
