@@ -1,2 +1,7 @@
-package application.commands;public interface ICommand {
+package application.commands;
+
+public interface ICommand {
+    void execute();
+
+    void unExecute();
 }
