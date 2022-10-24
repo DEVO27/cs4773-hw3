@@ -23,14 +23,17 @@ public class MoveShape implements ICommand {
         this.y = y;
     }
 
+    public MoveShape(Shape shape) {
+        this.shape = shape;
+    }
+
     /***
      * Stores current coordinates in queue
      * assign current values
      */
     @Override
     public void execute() {
-        shape.getCoordinateHistory().add(getX());
-        shape.getCoordinateHistory().add(getY());
+        shape.saveToMemento();
         shape.setXCoordinate(getX());
         shape.setYCoordinate(getY());
     }
@@ -41,9 +44,8 @@ public class MoveShape implements ICommand {
      */
     @Override
     public void unExecute() {
-        if (shape.getCoordinateHistory().size() >= 2) {
-            shape.setXCoordinate(shape.getCoordinateHistory().remove());
-            shape.setYCoordinate(shape.getCoordinateHistory().remove());
+        if (!shape.getMementoStack().isEmpty()) {
+            shape.getMemento();
         } else {
             System.out.println("Cannot Undo");
         }

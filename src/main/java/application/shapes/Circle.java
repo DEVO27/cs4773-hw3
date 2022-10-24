@@ -1,7 +1,5 @@
 package application.shapes;
 
-import java.util.LinkedList;
-
 /**
  * The type Circle.
  */
@@ -18,8 +16,6 @@ public class Circle extends Shape {
         super.setXCoordinate(0);
         super.setYCoordinate(0);
         super.setColor(Colors.Blue);
-        super.setColorHistory(new LinkedList<>());
-        super.setCoordinateHistory(new LinkedList<>());
     }
 
     /**

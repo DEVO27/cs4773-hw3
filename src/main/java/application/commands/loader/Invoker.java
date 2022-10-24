@@ -10,7 +10,7 @@ public class Invoker {
     private ICommand select;
     private ICommand move;
     private ICommand draw;
-    private ICommand color;
+    private ICommand changeColor;
     private ICommand delete;
     private ICommand drawScene;
     private ICommand undo;
@@ -45,10 +45,8 @@ public class Invoker {
         shape.execute();
     }
 
-    public Invoker(ChangeColor color) {
-        this.color = color;
-        commands.push(color);
-        color.execute();
+    public Invoker(ChangeColor changeColor) {
+        this.changeColor = changeColor;
     }
 
     public Invoker(DrawSceneShape drawScene) {
@@ -56,7 +54,25 @@ public class Invoker {
         drawScene.execute();
     }
 
-    public void Undo() {
-        commands.pop().unExecute();
+    public Invoker(UndoCommand undoCommand) {
+        this.undo = undoCommand;
+        undo.execute();
     }
+
+    public void changeColor() {
+        changeColor.execute();
+    }
+
+    public void undoMove() {
+        move.unExecute();
+    }
+
+    public void undoColor() {
+        changeColor.unExecute();
+    }
+
+    public void undoSelect() {
+        select.unExecute();
+    }
+
 }

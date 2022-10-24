@@ -4,12 +4,15 @@ import application.shapes.Shape;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * The type Select shape.
  */
 public class SelectShape implements ICommand {
-    private List<Shape> shapes = new ArrayList<>();
+    private Boolean active;
+    private List<Shape> shapes;
+    private Stack previousIndex;
     private Shape curShape;
     private int index;
 
@@ -20,19 +23,28 @@ public class SelectShape implements ICommand {
      */
     public SelectShape(int index) {
         this.index = index - 1;
+        this.previousIndex = new Stack<>();
+        this.shapes = new ArrayList<>();
     }
 
     /**
      * Set's local shape to current index inside list
+     *
      * @throws IndexOutOfBoundsException
      */
     @Override
     public void execute() throws IndexOutOfBoundsException {
+        previousIndex.push(getIndex());
         setCurShape(shapes.get(getIndex()));
     }
 
     @Override
     public void unExecute() {
+        if (!getPreviousIndex().isEmpty()) {
+            setCurShape(shapes.get((int) getPreviousIndex().pop()));
+        } else {
+            System.out.println("No Shape");
+        }
     }
 
     /**
@@ -87,5 +99,25 @@ public class SelectShape implements ICommand {
      */
     public void setIndex(int index) {
         this.index = index - 1;
+    }
+
+    public Stack getPreviousIndex() {
+        return previousIndex;
+    }
+
+    public void setPreviousIndex(Stack previousIndex) {
+        this.previousIndex = previousIndex;
+    }
+
+    public void setShapes(List<Shape> shapes) {
+        this.shapes = shapes;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

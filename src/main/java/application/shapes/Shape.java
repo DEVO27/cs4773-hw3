@@ -1,106 +1,75 @@
 package application.shapes;
 
-import java.util.Queue;
+import java.util.Stack;
 
-/**
- * The type Shape.
- */
 public abstract class Shape {
-    private Queue<Colors> colorHistory;
-    private Queue<Integer> coordinateHistory;
+    private final Stack<Memento> mementoStack = new Stack<>();
     private Colors color;
     private int xCoordinate;
     private int yCoordinate;
 
-    /**
-     * Gets x coordinate.
-     *
-     * @return the x coordinate
-     */
+    public class Memento {
+        private final Colors colors;
+        private final int xCoordinate;
+        private final int yCoordinate;
+
+        public Memento(Colors colors, int xCoordinate, int yCoordinate) {
+            this.colors = color;
+            this.xCoordinate = xCoordinate;
+            this.yCoordinate = yCoordinate;
+        }
+
+        public Colors getColors() {
+            return colors;
+        }
+
+        public int getXCoordinate() {
+            return xCoordinate;
+        }
+
+        public int getYCoordinate() {
+            return yCoordinate;
+        }
+    }
+
     public int getXCoordinate() {
         return xCoordinate;
     }
 
 
-    /**
-     * Sets x coordinate.
-     *
-     * @param xCoordinate the x coordinate
-     */
     public void setXCoordinate(int xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
 
-    /**
-     * Gets y coordinate.
-     *
-     * @return the y coordinate
-     */
     public int getYCoordinate() {
         return yCoordinate;
     }
 
-    /**
-     * Sets y coordinate.
-     *
-     * @param yCoordinate the y coordinate
-     */
     public void setYCoordinate(int yCoordinate) {
         this.yCoordinate = yCoordinate;
     }
 
-    /**
-     * Gets color.
-     *
-     * @return the color
-     */
     public Colors getColor() {
         return color;
     }
 
-    /**
-     * Sets color.
-     *
-     * @param color the color
-     */
     public void setColor(Colors color) {
         this.color = color;
     }
 
-    /**
-     * Gets color history.
-     *
-     * @return the color history
-     */
-    public Queue<Colors> getColorHistory() {
-        return colorHistory;
+    public void saveToMemento() {
+        mementoStack.push(new Memento(getColor(), getXCoordinate(), getYCoordinate()));
     }
 
-    /**
-     * Sets color history.
-     *
-     * @param colorHistory the color history
-     */
-    public void setColorHistory(Queue<Colors> colorHistory) {
-        this.colorHistory = colorHistory;
+    public void getMemento() {
+        Memento memento = mementoStack.pop();
+        setColor(memento.getColors());
+        setYCoordinate(memento.getYCoordinate());
+        setXCoordinate(memento.getXCoordinate());
     }
 
-    /**
-     * Gets coordinate history.
-     *
-     * @return the coordinate history
-     */
-    public Queue<Integer> getCoordinateHistory() {
-        return coordinateHistory;
-    }
-
-    /**
-     * Sets coordinate history.
-     *
-     * @param coordinateHistory the coordinate history
-     */
-    public void setCoordinateHistory(Queue<Integer> coordinateHistory) {
-        this.coordinateHistory = coordinateHistory;
+    public Stack<Memento> getMementoStack() {
+        return mementoStack;
     }
 
     @Override

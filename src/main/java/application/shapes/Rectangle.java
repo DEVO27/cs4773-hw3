@@ -1,8 +1,5 @@
 package application.shapes;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * The type Rectangle.
  */
@@ -22,8 +19,6 @@ public class Rectangle extends Shape {
         super.setXCoordinate(0);
         super.setYCoordinate(0);
         super.setColor(Colors.Red);
-        super.setColorHistory(new LinkedList<>());
-        super.setCoordinateHistory(new LinkedList<>());
     }
 
     /**

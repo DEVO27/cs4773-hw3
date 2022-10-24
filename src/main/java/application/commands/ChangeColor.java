@@ -7,11 +7,11 @@ import application.shapes.Shape;
  * The type Change color.
  */
 public class ChangeColor implements ICommand {
-    private final Shape shape;
+    private Shape shape;
     /**
      * The Color.
      */
-    Colors color;
+    private Colors color;
 
     /**
      * Instantiates a new Change color.
@@ -24,14 +24,18 @@ public class ChangeColor implements ICommand {
         this.color = color;
     }
 
+    public ChangeColor(Shape shape) {
+        this.shape = shape;
+    }
+
     @Override
     public void execute() {
+        shape.saveToMemento();
         shape.setColor(Colors.valueOf(color.toString()));
     }
 
     @Override
     public void unExecute() {
-        shape.getColorHistory().add(shape.getColor());
-        shape.setColor(Colors.valueOf(color.toString()));
+        shape.getMemento();
     }
 }
