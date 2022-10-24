@@ -1,107 +1,84 @@
 package application.commands;
 
-import application.shapes.Shape;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
-/**
- * The type Select shape.
- */
-public class SelectShape implements ICommand {
+public class Scene implements ICommand {
+    private Stack<Memento> indexStack = new Stack<>();
     private Boolean active;
-    private List<Shape> shapes;
+    /*private List<Shape> shapes;
     private Stack previousIndex;
-    private Shape curShape;
+    private Shape curShape; */
     private int index;
 
-    /**
-     * Instantiates a new Select shape.
-     *
-     * @param index the index
-     */
-    public SelectShape(int index) {
+    public Scene(int index) {
         this.index = index - 1;
-        this.previousIndex = new Stack<>();
-        this.shapes = new ArrayList<>();
+        /*this.previousIndex = new Stack<>();
+        this.shapes = new ArrayList<>(); */
     }
 
-    /**
-     * Set's local shape to current index inside list
-     *
-     * @throws IndexOutOfBoundsException
-     */
     @Override
     public void execute() throws IndexOutOfBoundsException {
-        previousIndex.push(getIndex());
-        setCurShape(shapes.get(getIndex()));
+        saveToMemento();
+        setIndex(index);
+        /**previousIndex.push(index);
+        setCurShape(shapes.get(index)); ***/
     }
 
     @Override
     public void unExecute() {
-        if (!getPreviousIndex().isEmpty()) {
+        getMemento();
+        /*if (!getPreviousIndex().isEmpty()) {
             setCurShape(shapes.get((int) getPreviousIndex().pop()));
         } else {
             System.out.println("No Shape");
+        } */
+    }
+
+    public void saveToMemento() {
+        this.indexStack.push(new Memento(getIndex()));
+    }
+
+    public void getMemento() {
+        setIndex(indexStack.pop().getIndex());
+    }
+
+    public class Memento {
+        private int index;
+
+        public Memento(int index) {
+            this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
         }
     }
 
-    /**
-     * Gets shapes.
-     *
-     * @return the shapes
-     */
-    public List<Shape> getShapes() {
+    /**public List<Shape> getShapes() {
         return shapes;
     }
 
-    /**
-     * Sets shapes.
-     *
-     * @param shapes the shapes
-     */
     public void setShapes(ArrayList<Shape> shapes) {
         this.shapes = shapes;
     }
 
-    /**
-     * Gets cur shape.
-     *
-     * @return the cur shape
-     */
     public Shape getCurShape() {
         return curShape;
     }
 
-    /**
-     * Sets cur shape.
-     *
-     * @param curShape the cur shape
-     */
     public void setCurShape(Shape curShape) {
         this.curShape = curShape;
-    }
+    } **/
 
-    /**
-     * Gets index.
-     *
-     * @return the index
-     */
     public int getIndex() {
         return index;
     }
 
-    /**
-     * Sets index.
-     *
-     * @param index the index
-     */
     public void setIndex(int index) {
-        this.index = index - 1;
+        this.index = index;
     }
 
-    public Stack getPreviousIndex() {
+    /***public Stack getPreviousIndex() {
         return previousIndex;
     }
 
@@ -111,7 +88,7 @@ public class SelectShape implements ICommand {
 
     public void setShapes(List<Shape> shapes) {
         this.shapes = shapes;
-    }
+    } **/
 
     public Boolean getActive() {
         return active;

@@ -1,4 +1,4 @@
-package application.commands.loader;
+package application.commands.interpreter;
 
 import application.commands.*;
 import application.model.CareTaker;
