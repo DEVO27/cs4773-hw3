@@ -1,4 +1,4 @@
-package application.commands.loader;
+package application.commands.interpreter;
 
 public enum ValidCommands {
     CREATE_RECTANGLE("CREATE RECTANGLE"),
