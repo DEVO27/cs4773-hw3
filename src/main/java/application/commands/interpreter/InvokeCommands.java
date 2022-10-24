@@ -2,9 +2,7 @@ package application.commands.interpreter;
 
 import application.commands.*;
 
-import java.util.Stack;
-
-public class Invoker {
+public class InvokeCommands {
     private ICommand createRectangle;
     private ICommand createCircle;
     private ICommand select;
@@ -14,19 +12,18 @@ public class Invoker {
     private ICommand delete;
     private ICommand drawScene;
     private ICommand undo;
-    private final Stack<ICommand> commands = new Stack<>();
 
-    public Invoker(CreateRectangle rectangle) {
+    public InvokeCommands(CreateRectangle rectangle) {
         this.createRectangle = rectangle;
         createRectangle.execute();
     }
 
-    public Invoker(CreateCircle circle) {
+    public InvokeCommands(CreateCircle circle) {
         this.createCircle = circle;
         createCircle.execute();
     }
 
-    public Invoker(SelectShape shape) {
+    public InvokeCommands(SelectShape shape) {
         this.select = shape;
         try {
             select.execute();
@@ -35,32 +32,40 @@ public class Invoker {
         }
     }
 
-    public Invoker(MoveShape shape) {
+    public InvokeCommands(MoveShape shape) {
         this.move = shape;
         move.execute();
     }
 
-    public Invoker(DrawShape shape) {
+    public InvokeCommands(DrawShape shape) {
         this.draw = shape;
         shape.execute();
     }
 
-    public Invoker(ChangeColor changeColor) {
+    public InvokeCommands(ChangeColor changeColor) {
         this.changeColor = changeColor;
     }
 
-    public Invoker(DrawSceneShape drawScene) {
+    public InvokeCommands(DrawSceneShape drawScene) {
         this.drawScene = drawScene;
         drawScene.execute();
     }
 
-    public Invoker(UndoCommand undoCommand) {
+    public InvokeCommands(UndoCommand undoCommand) {
         this.undo = undoCommand;
         undo.execute();
     }
 
+    public InvokeCommands(DeleteShape deleteShape){
+        this.delete = deleteShape;
+    }
+
     public void changeColor() {
         changeColor.execute();
+    }
+
+    public void deleteShape() {
+        delete.execute();
     }
 
     public void undoMove() {
@@ -74,5 +79,12 @@ public class Invoker {
     public void undoSelect() {
         select.unExecute();
     }
+    public void undoDeleteShape() {
+        delete.unExecute();
+    }
+
+
+
+
 
 }
