@@ -1,6 +1,6 @@
 package application.model;
 
-import application.shapes.Shape;
+import application.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.List;

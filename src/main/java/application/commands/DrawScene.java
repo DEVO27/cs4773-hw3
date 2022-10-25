@@ -1,24 +1,12 @@
 package application.commands;
 
-import application.shapes.Shape;
+import application.shape.Shape;
 
 import java.util.List;
 
-/**
- * The type Draw scene shape.
- */
-public class DrawSceneShape implements ICommand {
-    /**
-     * The Shapes.
-     */
+public class DrawScene implements ICommand {
     List<Shape> shapes;
-
-    /**
-     * Instantiates a new Draw scene shape.
-     *
-     * @param shapes the shapes
-     */
-    public DrawSceneShape(List<Shape> shapes) {
+    public DrawScene(List<Shape> shapes) {
         this.shapes = shapes;
     }
 

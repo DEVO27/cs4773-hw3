@@ -1,4 +1,4 @@
-package application.commands.interpreter;
+package application.commands.operations;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.Stack;
 
 public class LoadCommands {
+    /***
+     * Cross-references input file as commands
+     * against valid command enum
+     * @param fileName
+     */
     public void readFile(String fileName) {
         Stack<String> inputCmd = new Stack<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {

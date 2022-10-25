@@ -1,6 +1,6 @@
 package application.commands;
 
-import application.commands.interpreter.InvokeCommands;
+import application.commands.operations.InvokeCommands;
 import application.model.Scene;
 
 public class UndoCommand implements ICommand {
@@ -15,17 +15,16 @@ public class UndoCommand implements ICommand {
     }
 
     private void choice() {
-        int index = sceneShape.getSavedShapes().size() - 1;
         int curIndex = selectShape.getIndex();
+        int index = sceneShape.getSavedShapes().size() - 1;
         switch (command) {
             case "CREATE RECTANGLE", "CREATE CIRCLE" -> sceneShape.getSavedShapes().remove(index);
-            case "MOVE" -> new InvokeCommands(new MoveShape(sceneShape.getShape(curIndex))).undoMove();
-            case "SELECT" -> new InvokeCommands(new SelectShape(curIndex)).undoSelect();
-            case "COLOR" -> new InvokeCommands(new ChangeColor(sceneShape.getShape(curIndex))).undoColor();
-            case "DELETE" -> new InvokeCommands(new DeleteShape(curIndex, sceneShape)).undoDeleteShape();
+            case "MOVE" -> new InvokeCommands(new MoveShape(sceneShape.getShape(curIndex))).unExecuteMove();
+            case "SELECT" -> new InvokeCommands(new SelectShape(curIndex)).unExecuteSelect();
+            case "COLOR" -> new InvokeCommands(new ChangeColor(sceneShape.getShape(curIndex))).unExecuteColor();
+            case "DELETE" -> new InvokeCommands(new DeleteShape(curIndex, sceneShape)).unExecuteDelete();
         }
     }
-
 
     @Override
     public void execute() {

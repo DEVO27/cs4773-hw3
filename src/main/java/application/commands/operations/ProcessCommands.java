@@ -1,19 +1,15 @@
-package application.commands.interpreter;
+package application.commands.operations;
 
 import application.commands.*;
-import application.shapes.Colors;
-import application.shapes.Shape;
+import application.shape.Colors;
 
 import java.util.Stack;
 
 public class ProcessCommands {
-    private CreateRectangle createRectangle;
     private application.model.Scene scene;
     private final SelectShape selectShape;
     private InvokeCommands invokeCommands;
     private Stack<String> invokerStack;
-    private CreateCircle createCircle;
-    private ChangeColor changeColor;
     private UndoCommand undoCommand;
 
     public ProcessCommands() {
@@ -25,41 +21,39 @@ public class ProcessCommands {
     public void choice(String command, String[] parse, Stack<String> inputCmd) {
         invokerStack = inputCmd;
         switch (command) {
-            case "CREATE RECTANGLE" -> rectangle(parse);
-            case "CREATE CIRCLE" -> circle(parse);
-            case "SELECT" -> select(parse);
-            case "MOVE" -> move(parse);
-            case "DRAW" -> loadDraw();
-            case "DRAWSCENE" -> loadDrawScene();
-            case "COLOR" -> loadColor(parse);
+            case "CREATE RECTANGLE" -> createRectangle(parse);
+            case "CREATE CIRCLE" -> createCircle(parse);
+            case "SELECT" -> selectShape(parse);
+            case "MOVE" -> moveShape(parse);
+            case "DRAW" -> drawShape();
+            case "DRAWSCENE" -> drawScene();
+            case "COLOR" -> changeColor(parse);
             case "UNDO" -> loadUndo();
             case "DELETE" -> delete();
+            default -> System.out.println("Invalid Command");
         }
     }
 
-    public void rectangle(String[] cmd) {
-        int x = Integer.parseInt(cmd[2]);
-        int y = Integer.parseInt(cmd[3]);
-        createRectangle = new CreateRectangle(x, y);
+    public void createRectangle(String[] input) {
+        CreateRectangle createRectangle = new CreateRectangle(input);
         invokeCommands = new InvokeCommands(createRectangle);
-        Shape shape = createRectangle.getShape();
         scene.addShape(createRectangle.getShape());
         selectShape.setActive(Boolean.FALSE);
     }
 
-    public void circle(String[] cmd) {
-        int radius = Integer.parseInt(cmd[2]);
-        createCircle = new CreateCircle(radius);
+    public void createCircle(String[] input) {
+        CreateCircle createCircle = new CreateCircle(input);
         invokeCommands = new InvokeCommands(createCircle);
         scene.addShape(createCircle.getShape());
         selectShape.setActive(Boolean.FALSE);
     }
 
-    public void select(String[] cmd) {
-        int index = Integer.parseInt(cmd[1]) - 1;
+    public void selectShape(String[] input) {
+        int index = Integer.parseInt(input[1]) - 1;
         if (index < scene.getSavedShapes().size()) {
             selectShape.setIndex(index);
             invokeCommands = new InvokeCommands(selectShape);
+            invokeCommands.executeSelect();
             scene.setCurShape(scene.getShape(index));
             selectShape.setActive(Boolean.TRUE);
         } else {
@@ -67,19 +61,20 @@ public class ProcessCommands {
         }
     }
 
-    public void move(String[] cmd) {
+    public void moveShape(String[] input) {
         if (Boolean.TRUE.equals(selectShape.getActive())) {
-            int x = Integer.parseInt(cmd[1]);
-            int y = Integer.parseInt(cmd[2]);
+            int x = Integer.parseInt(input[1]);
+            int y = Integer.parseInt(input[2]);
             int index = selectShape.getIndex();
             invokeCommands = new InvokeCommands(new MoveShape(scene.getShape(index), x, y));
+            invokeCommands.executeMove();
             scene.setShape(scene.getShape(index), index);
         } else {
             System.out.println("no shape selected");
         }
     }
 
-    public void loadDraw() {
+    public void drawShape() {
         if (Boolean.TRUE.equals(selectShape.getActive())) {
             int index = selectShape.getIndex();
             invokeCommands = new InvokeCommands(new DrawShape(scene.getShape(index)));
@@ -88,19 +83,19 @@ public class ProcessCommands {
         }
     }
 
-    public void loadColor(String[] cmd) {
+    public void changeColor(String[] cmd) {
         if (Boolean.TRUE.equals(selectShape.getActive())) {
             int index = selectShape.getIndex();
-            changeColor = new ChangeColor(scene.getShape(index), Colors.valueOf(cmd[1]));
+            ChangeColor changeColor = new ChangeColor(scene.getShape(index), Colors.valueOf(cmd[1]));
             invokeCommands = new InvokeCommands(changeColor);
-            invokeCommands.changeColor();
+            invokeCommands.executeColor();
         } else {
             invokeCommands = new InvokeCommands(new SelectShape(0));
         }
     }
 
-    public void loadDrawScene() {
-        invokeCommands = new InvokeCommands(new DrawSceneShape(scene.getSavedShapes()));
+    public void drawScene() {
+        invokeCommands = new InvokeCommands(new DrawScene(scene.getSavedShapes()));
     }
 
     public void delete() {
@@ -108,7 +103,7 @@ public class ProcessCommands {
             int curIndex = selectShape.getIndex();
             DeleteShape deleteShape = new DeleteShape(curIndex, scene);
             invokeCommands = new InvokeCommands(deleteShape);
-            invokeCommands.deleteShape();
+            invokeCommands.executeDelete();
         }
         selectShape.setActive(Boolean.FALSE);
     }

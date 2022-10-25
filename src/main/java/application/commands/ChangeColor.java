@@ -1,7 +1,7 @@
 package application.commands;
 
-import application.shapes.Colors;
-import application.shapes.Shape;
+import application.shape.Colors;
+import application.shape.Shape;
 
 /**
  * The type Change color.

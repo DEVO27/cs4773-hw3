@@ -19,11 +19,7 @@ public class DeleteShape implements ICommand {
 
     @Override
     public void unExecute() {
-        if (!scene.getMementoStack().isEmpty()) {
-            scene.getMemento();
-        } else {
-            System.out.println("no shape selected");
-        }
+        scene.getMemento();
     }
 
     public Scene getScene() {

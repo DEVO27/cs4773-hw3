@@ -1,4 +1,4 @@
-package application.shapes;
+package application.shape;
 
 /**
  * The type Rectangle.
