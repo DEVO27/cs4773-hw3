@@ -28,8 +28,8 @@ public class ProcessCommands {
             case "DRAW" -> drawShape();
             case "DRAWSCENE" -> drawScene();
             case "COLOR" -> changeColor(parse);
-            case "UNDO" -> loadUndo();
-            case "DELETE" -> delete();
+            case "UNDO" -> undoCommand();
+            case "DELETE" -> deleteShape();
             default -> System.out.println("Invalid Command");
         }
     }
@@ -98,7 +98,7 @@ public class ProcessCommands {
         invokeCommands = new InvokeCommands(new DrawScene(scene.getSavedShapes()));
     }
 
-    public void delete() {
+    public void deleteShape() {
         if (Boolean.TRUE.equals(selectShape.getActive())) {
             int curIndex = selectShape.getIndex();
             DeleteShape deleteShape = new DeleteShape(curIndex, scene);
@@ -108,7 +108,7 @@ public class ProcessCommands {
         selectShape.setActive(Boolean.FALSE);
     }
 
-    public void loadUndo() {
+    public void undoCommand() {
         undoCommand = new UndoCommand(invokerStack.pop(), scene, selectShape);
         invokeCommands = new InvokeCommands(undoCommand);
         scene = undoCommand.getSceneShape();
