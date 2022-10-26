@@ -5,7 +5,8 @@ import application.shape.Shape;
 import java.util.List;
 
 public class DrawScene implements ICommand {
-    List<Shape> shapes;
+    private List<Shape> shapes;
+
     public DrawScene(List<Shape> shapes) {
         this.shapes = shapes;
     }
@@ -22,5 +23,11 @@ public class DrawScene implements ICommand {
 
     }
 
+    public List<Shape> getShapes() {
+        return shapes;
+    }
 
+    public void setShapes(List<Shape> shapes) {
+        this.shapes = shapes;
+    }
 }

@@ -75,12 +75,7 @@ public class ProcessCommands {
     }
 
     public void drawShape() {
-        if (Boolean.TRUE.equals(selectShape.getActive())) {
-            int index = selectShape.getIndex();
-            invokeCommands = new InvokeCommands(new DrawShape(scene.getShape(index)));
-        } else {
-            System.out.println("no shape selected");
-        }
+        invokeCommands = new InvokeCommands(new DrawShape(scene, selectShape));
     }
 
     public void changeColor(String[] cmd) {
