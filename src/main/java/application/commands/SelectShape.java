@@ -18,7 +18,7 @@ public class SelectShape implements ICommand {
 
     @Override
     public void execute() throws IndexOutOfBoundsException {
-        if (index < scene.getSavedShapes().size() && index >= 0) {
+        if (index < scene.getSavedShapes().size()) {
             saveToMemento();
             setIndex(newIndex);
             scene.setCurShape(scene.getShape(index));
