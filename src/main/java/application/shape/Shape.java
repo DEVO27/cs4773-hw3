@@ -74,6 +74,6 @@ public abstract class Shape {
 
     @Override
     public String toString() {
-        return "Color: %s, Coordinates: (%d %d),".formatted(getColor().toString(), getXCoordinate(), getYCoordinate());
+        return "Color: %s, Origin: (%d %d),".formatted(getColor().toString(), getXCoordinate(), getYCoordinate());
     }
 }
