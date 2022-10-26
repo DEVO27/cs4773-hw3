@@ -99,7 +99,6 @@ public class ProcessCommands {
     }
 
     public void deleteShape() {
-        int curIndex = selectShape.getIndex();
         DeleteShape deleteShape = new DeleteShape(selectShape, scene);
         invokeCommands = new InvokeCommands(deleteShape);
         invokeCommands.executeDelete();
