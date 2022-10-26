@@ -50,15 +50,10 @@ public class ProcessCommands {
 
     public void selectShape(String[] input) {
         int index = Integer.parseInt(input[1]) - 1;
-        if (index < scene.getSavedShapes().size()) {
-            selectShape.setNewIndex(index);
-            invokeCommands = new InvokeCommands(selectShape);
-            invokeCommands.executeSelect();
-            scene.setCurShape(scene.getShape(index));
-            selectShape.setActive(Boolean.TRUE);
-        } else {
-            System.out.println("ERROR: invalid shape for SELECT");
-        }
+        selectShape.setNewIndex(index);
+        selectShape.setScene(scene);
+        invokeCommands = new InvokeCommands(selectShape);
+        invokeCommands.executeSelect();
     }
 
     public void moveShape(String[] input) {

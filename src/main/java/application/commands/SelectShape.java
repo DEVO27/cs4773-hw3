@@ -1,10 +1,13 @@
 package application.commands;
 
+import application.model.Scene;
+
 import java.util.Arrays;
 import java.util.Stack;
 
 public class SelectShape implements ICommand {
     private Stack<Memento> indexStack = new Stack<>();
+    private Scene scene;
     private Boolean active;
     private int index;
     private int newIndex;
@@ -15,8 +18,14 @@ public class SelectShape implements ICommand {
 
     @Override
     public void execute() throws IndexOutOfBoundsException {
-        saveToMemento();
-        setIndex(newIndex);
+        if (index < scene.getSavedShapes().size() && index >= 0) {
+            saveToMemento();
+            setIndex(newIndex);
+            scene.setCurShape(scene.getShape(index));
+            setActive(Boolean.TRUE);
+        } else {
+            System.out.println("ERROR: invalid shape for SELECT");
+        }
     }
 
     @Override
@@ -80,4 +89,9 @@ public class SelectShape implements ICommand {
     public void setNewIndex(int newIndex) {
         this.newIndex = newIndex;
     }
+
+    public Scene getScene() {return scene;}
+
+    public void setScene(Scene scene) {this.scene = scene;}
+
 }
