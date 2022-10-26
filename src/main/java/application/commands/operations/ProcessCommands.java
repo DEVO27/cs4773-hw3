@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class ProcessCommands {
     private application.model.Scene scene;
-    private final SelectShape selectShape;
+    private SelectShape selectShape;
     private InvokeCommands invokeCommands;
     private Stack<String> invokerStack;
     private UndoCommand undoCommand;
@@ -103,11 +103,13 @@ public class ProcessCommands {
         DeleteShape deleteShape = new DeleteShape(selectShape, scene);
         invokeCommands = new InvokeCommands(deleteShape);
         invokeCommands.executeDelete();
+        selectShape = deleteShape.getSelectShape();
     }
 
     public void undoCommand() {
         undoCommand = new UndoCommand(invokerStack.pop(), scene, selectShape);
         invokeCommands = new InvokeCommands(undoCommand);
+        selectShape = undoCommand.getSelectShape();
         scene = undoCommand.getSceneShape();
     }
 }
