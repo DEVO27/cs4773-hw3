@@ -62,16 +62,10 @@ public class ProcessCommands {
     }
 
     public void moveShape(String[] input) {
-        if (Boolean.TRUE.equals(selectShape.getActive())) {
-            int x = Integer.parseInt(input[1]);
-            int y = Integer.parseInt(input[2]);
-            int index = selectShape.getIndex();
-            invokeCommands = new InvokeCommands(new MoveShape(scene.getShape(index), x, y));
-            invokeCommands.executeMove();
-            scene.setShape(scene.getShape(index), index);
-        } else {
-            System.out.println("no shape selected");
-        }
+        int x = Integer.parseInt(input[1]);
+        int y = Integer.parseInt(input[2]);
+        invokeCommands = new InvokeCommands(new MoveShape(selectShape, scene, x, y));
+        invokeCommands.executeMove();
     }
 
     public void drawShape() {
