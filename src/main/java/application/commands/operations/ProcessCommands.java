@@ -79,14 +79,10 @@ public class ProcessCommands {
     }
 
     public void changeColor(String[] cmd) {
-        if (Boolean.TRUE.equals(selectShape.getActive())) {
             int index = selectShape.getIndex();
-            ChangeColor changeColor = new ChangeColor(scene.getShape(index), Colors.valueOf(cmd[1]));
+            ChangeColor changeColor = new ChangeColor(scene.getShape(index), Colors.valueOf(cmd[1]), selectShape);
             invokeCommands = new InvokeCommands(changeColor);
             invokeCommands.executeColor();
-        } else {
-            invokeCommands = new InvokeCommands(new SelectShape(0));
-        }
     }
 
     public void drawScene() {

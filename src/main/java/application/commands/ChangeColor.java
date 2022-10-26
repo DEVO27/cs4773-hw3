@@ -1,27 +1,18 @@
 package application.commands;
 
+import application.model.Scene;
 import application.shape.Colors;
 import application.shape.Shape;
 
-/**
- * The type Change color.
- */
 public class ChangeColor implements ICommand {
     private Shape shape;
-    /**
-     * The Color.
-     */
     private Colors color;
+    private SelectShape selectShape;
 
-    /**
-     * Instantiates a new Change color.
-     *
-     * @param shape the shape
-     * @param color the color
-     */
-    public ChangeColor(Shape shape, Colors color) {
+    public ChangeColor(Shape shape, Colors color,SelectShape selectShape) {
         this.shape = shape;
         this.color = color;
+        this.selectShape = selectShape;
     }
 
     public ChangeColor(Shape shape) {
@@ -30,12 +21,24 @@ public class ChangeColor implements ICommand {
 
     @Override
     public void execute() {
-        shape.saveToMemento();
-        shape.setColor(Colors.valueOf(color.toString()));
+        if (Boolean.TRUE.equals(selectShape.getActive())) {
+            shape.saveToMemento();
+            shape.setColor(Colors.valueOf(color.toString()));
+        } else {
+            System.out.println("no shape selected");
+        }
     }
 
     @Override
     public void unExecute() {
         shape.getMemento();
+    }
+
+    public Shape getShape() {
+        return shape;
+    }
+
+    public void setShape(Shape shape) {
+        this.shape = shape;
     }
 }
