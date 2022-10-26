@@ -12,6 +12,8 @@ public class ChangeColor implements ICommand {
     private Colors color;
 
     public ChangeColor(Colors color, Scene scene, SelectShape selectShape) {
+        this.selectShape = selectShape;
+        this.scene = scene;
         this.index = selectShape.getIndex();
         this.shape = scene.getShape(index);
         this.color = color;
