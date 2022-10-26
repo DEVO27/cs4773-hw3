@@ -24,6 +24,7 @@ public class LoadCommands {
                             processCommands.choice(ValidCommands.DRAW_SCENE.label, parse, inputCmd);
                             inputCmd.push(commands.label);
                         } else {
+                            System.out.println(line);      //remove me
                             processCommands.choice(commands.label, parse, inputCmd);
                             inputCmd.push(commands.label);
                         }

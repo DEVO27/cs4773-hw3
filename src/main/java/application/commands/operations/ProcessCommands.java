@@ -15,7 +15,7 @@ public class ProcessCommands {
     public ProcessCommands() {
         this.scene = new application.model.Scene();
         this.invokerStack = new Stack<>();
-        this.selectShape = new SelectShape(0);
+        this.selectShape = new SelectShape(-1);
     }
 
     public void choice(String command, String[] parse, Stack<String> inputCmd) {
@@ -51,7 +51,7 @@ public class ProcessCommands {
     public void selectShape(String[] input) {
         int index = Integer.parseInt(input[1]) - 1;
         if (index < scene.getSavedShapes().size()) {
-            selectShape.setIndex(index);
+            selectShape.setNewIndex(index);
             invokeCommands = new InvokeCommands(selectShape);
             invokeCommands.executeSelect();
             scene.setCurShape(scene.getShape(index));

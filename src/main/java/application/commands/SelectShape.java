@@ -1,11 +1,13 @@
 package application.commands;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class SelectShape implements ICommand {
     private Stack<Memento> indexStack = new Stack<>();
     private Boolean active;
     private int index;
+    private int newIndex;
 
     public SelectShape(int index) {
         this.index = index;
@@ -14,12 +16,12 @@ public class SelectShape implements ICommand {
     @Override
     public void execute() throws IndexOutOfBoundsException {
         saveToMemento();
-        setIndex(index);
+        setIndex(newIndex);
     }
 
     @Override
     public void unExecute() {
-        if (!indexStack.isEmpty()){
+        if (!indexStack.isEmpty() && index > 0){
             getMemento();
         } else {
             System.out.println("No Shape");
@@ -31,7 +33,8 @@ public class SelectShape implements ICommand {
     }
 
     public void getMemento() {
-        setIndex(indexStack.pop().getIndex());
+        int temp = indexStack.pop().getIndex();
+        setIndex(temp);
     }
 
     public class Memento {
@@ -68,5 +71,13 @@ public class SelectShape implements ICommand {
 
     public void setIndexStack(Stack<Memento> indexStack) {
         this.indexStack = indexStack;
+    }
+
+    public int getNewIndex() {
+        return newIndex;
+    }
+
+    public void setNewIndex(int newIndex) {
+        this.newIndex = newIndex;
     }
 }
