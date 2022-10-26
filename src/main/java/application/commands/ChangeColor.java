@@ -6,13 +6,15 @@ import application.shape.Shape;
 
 public class ChangeColor implements ICommand {
     private Shape shape;
-    private Colors color;
+    private int index;
     private SelectShape selectShape;
+    private Scene scene;
+    private Colors color;
 
-    public ChangeColor(Shape shape, Colors color,SelectShape selectShape) {
-        this.shape = shape;
+    public ChangeColor(Colors color, Scene scene, SelectShape selectShape) {
+        this.index = selectShape.getIndex();
+        this.shape = scene.getShape(index);
         this.color = color;
-        this.selectShape = selectShape;
     }
 
     public ChangeColor(Shape shape) {
@@ -32,13 +34,5 @@ public class ChangeColor implements ICommand {
     @Override
     public void unExecute() {
         shape.getMemento();
-    }
-
-    public Shape getShape() {
-        return shape;
-    }
-
-    public void setShape(Shape shape) {
-        this.shape = shape;
     }
 }
