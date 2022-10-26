@@ -99,13 +99,10 @@ public class ProcessCommands {
     }
 
     public void deleteShape() {
-        if (Boolean.TRUE.equals(selectShape.getActive())) {
-            int curIndex = selectShape.getIndex();
-            DeleteShape deleteShape = new DeleteShape(curIndex, scene);
-            invokeCommands = new InvokeCommands(deleteShape);
-            invokeCommands.executeDelete();
-        }
-        selectShape.setActive(Boolean.FALSE);
+        int curIndex = selectShape.getIndex();
+        DeleteShape deleteShape = new DeleteShape(selectShape, scene);
+        invokeCommands = new InvokeCommands(deleteShape);
+        invokeCommands.executeDelete();
     }
 
     public void undoCommand() {

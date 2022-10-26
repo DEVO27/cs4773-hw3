@@ -4,17 +4,24 @@ import application.model.Scene;
 
 public class DeleteShape implements ICommand {
     private Scene scene;
-    private int index;
+    private SelectShape selectShape;
 
-    public DeleteShape(int index, Scene scene) {
-        this.index = index;
+    public DeleteShape(SelectShape selected, Scene scene) {
+        this.selectShape = selected;
         this.scene = scene;
     }
 
     @Override
     public void execute() {
-        scene.saveToMemento();
-        scene.getSavedShapes().remove(index);
+        if (Boolean.TRUE.equals(selectShape.getActive())) {
+            int index = selectShape.getIndex();
+            scene.saveToMemento();
+            scene.getSavedShapes().remove(index);
+        }
+        else {
+            System.out.println("No shape selected");
+        }
+        selectShape.setActive(Boolean.FALSE);
     }
 
     @Override
@@ -30,11 +37,11 @@ public class DeleteShape implements ICommand {
         this.scene = scene;
     }
 
-    public int getIndex() {
-        return index;
+    public SelectShape getSelectShape() {
+        return selectShape;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setSelectShape(SelectShape selectShape) {
+        this.selectShape = selectShape;
     }
 }

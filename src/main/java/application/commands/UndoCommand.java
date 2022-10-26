@@ -22,7 +22,7 @@ public class UndoCommand implements ICommand {
             case "MOVE" -> new InvokeCommands(new MoveShape(sceneShape.getShape(curIndex))).unExecuteMove();
             case "SELECT" -> new InvokeCommands(this.selectShape).unExecuteSelect();
             case "COLOR" -> new InvokeCommands(new ChangeColor(sceneShape.getShape(curIndex))).unExecuteColor();
-            case "DELETE" -> new InvokeCommands(new DeleteShape(curIndex, sceneShape)).unExecuteDelete();
+            case "DELETE" -> new InvokeCommands(new DeleteShape(selectShape, sceneShape)).unExecuteDelete();
         }
     }
 
