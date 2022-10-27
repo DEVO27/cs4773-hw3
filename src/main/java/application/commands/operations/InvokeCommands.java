@@ -2,6 +2,9 @@ package application.commands.operations;
 
 import application.commands.*;
 
+/***
+ * Handles the execution of all created commands
+ */
 public class InvokeCommands {
     private ICommand createRectangle;
     private ICommand createCircle;
@@ -54,7 +57,9 @@ public class InvokeCommands {
         this.deleteShape = deleteShape;
     }
 
-    public void executeSelect() {selectShape.execute();}
+    public void executeSelect() {
+        selectShape.execute();
+    }
 
     public void executeCreateRectangle() {
         createRectangle.execute();

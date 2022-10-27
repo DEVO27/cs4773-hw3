@@ -1,5 +1,8 @@
 package application.commands.operations;
 
+/***
+ * Enum of valid commands that can executed
+ */
 public enum ValidCommands {
     CREATE_RECTANGLE("CREATE RECTANGLE"),
     CREATE_CIRCLE("CREATE CIRCLE"),
@@ -12,7 +15,7 @@ public enum ValidCommands {
     DRAW("DRAW");
     public final String label;
 
-    private ValidCommands(String label) {
+    ValidCommands(String label) {
         this.label = label;
     }
 }

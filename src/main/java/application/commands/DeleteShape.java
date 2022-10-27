@@ -11,14 +11,16 @@ public class DeleteShape implements ICommand {
         this.scene = scene;
     }
 
+    /***
+     * Deletes shape from list IFF select was a previous command
+     */
     @Override
     public void execute() {
         if (Boolean.TRUE.equals(selectShape.getActive())) {
             int index = selectShape.getIndex();
             scene.saveToMemento();
             scene.getSavedShapes().remove(index);
-        }
-        else {
+        } else {
             System.out.println("No shape selected");
         }
         selectShape.setActive(Boolean.FALSE);

@@ -24,6 +24,9 @@ public class MoveShape implements ICommand {
         this.shape = shape;
     }
 
+    /***
+     * Moves current shape to new origin
+     */
     @Override
     public void execute() {
         if (Boolean.TRUE.equals(selectShape.getActive())) {
@@ -31,12 +34,14 @@ public class MoveShape implements ICommand {
             shape.setXCoordinate(getX());
             shape.setYCoordinate(getY());
             scene.setShape(scene.getShape(index), index);
-        }
-        else {
+        } else {
             System.out.println("No shape selected");
         }
     }
 
+    /***
+     * resets current shape origin
+     */
     @Override
     public void unExecute() {
         shape.getMemento();

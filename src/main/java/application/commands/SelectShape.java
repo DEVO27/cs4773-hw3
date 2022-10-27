@@ -2,7 +2,6 @@ package application.commands;
 
 import application.model.Scene;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 public class SelectShape implements ICommand {
@@ -16,9 +15,12 @@ public class SelectShape implements ICommand {
         this.index = index;
     }
 
+    /***
+     * Saves the new index into the stack
+     */
     @Override
-    public void execute() throws IndexOutOfBoundsException {
-        if (index < scene.getSavedShapes().size()) {
+    public void execute() {
+        if (index < scene.getSavedShapes().size() && newIndex < scene.getSavedShapes().size()) {
             saveToMemento();
             setIndex(newIndex);
             scene.setCurShape(scene.getShape(index));
@@ -28,26 +30,36 @@ public class SelectShape implements ICommand {
         }
     }
 
+    /***
+     * gets and sets the last saved index in the stack
+     * to be the current index
+     */
     @Override
     public void unExecute() {
-        if (!indexStack.isEmpty() && index > 0){
+        if (!indexStack.isEmpty() && index > 0) {
             getMemento();
         } else {
             System.out.println("No Shape");
         }
     }
 
+    /**
+     * Saves new index to the stack
+     */
     public void saveToMemento() {
         this.indexStack.push(new Memento(getIndex()));
     }
 
+    /***
+     * Sets previous index from stack
+     */
     public void getMemento() {
         int temp = indexStack.pop().getIndex();
         setIndex(temp);
     }
 
     public class Memento {
-        private int index;
+        private final int index;
 
         public Memento(int index) {
             this.index = index;
@@ -90,8 +102,12 @@ public class SelectShape implements ICommand {
         this.newIndex = newIndex;
     }
 
-    public Scene getScene() {return scene;}
+    public Scene getScene() {
+        return scene;
+    }
 
-    public void setScene(Scene scene) {this.scene = scene;}
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
 
 }

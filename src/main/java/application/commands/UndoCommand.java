@@ -14,6 +14,9 @@ public class UndoCommand implements ICommand {
         this.selectShape = selectShape;
     }
 
+    /***
+     * Method executes last command from stack and undoes its operation
+     */
     private void choice() {
         int curIndex = selectShape.getIndex();
         int index = sceneShape.getSavedShapes().size() - 1;

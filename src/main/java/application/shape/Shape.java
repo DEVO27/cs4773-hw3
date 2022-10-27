@@ -8,6 +8,9 @@ public abstract class Shape {
     private int xCoordinate;
     private int yCoordinate;
 
+    /***
+     * Saves the state of each shape's attributes
+     */
     public class Memento {
         private final Colors colors;
         private final int xCoordinate;
@@ -57,10 +60,16 @@ public abstract class Shape {
         this.color = color;
     }
 
+    /***
+     * Pushes current save attributes onto the stack
+     */
     public void saveToMemento() {
         mementoStack.push(new Memento(getColor(), getXCoordinate(), getYCoordinate()));
     }
 
+    /***
+     * Sets all attributes to the last saved state in the stack
+     */
     public void getMemento() {
         Memento memento = mementoStack.pop();
         setColor(memento.getColors());

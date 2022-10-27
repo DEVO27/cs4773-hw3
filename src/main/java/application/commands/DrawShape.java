@@ -11,6 +11,9 @@ public class DrawShape implements ICommand {
         this.selectShape = selectShape;
     }
 
+    /***
+     * print's the current shape IFF select was a previous command
+     */
     @Override
     public void execute() {
         if (Boolean.TRUE.equals(selectShape.getActive())) {

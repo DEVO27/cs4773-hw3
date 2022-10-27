@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+/***
+ * Class tracks and stores previous list of shapes in the
+ * saved shape array
+ */
 public class Scene {
     private List<Shape> savedShapes = new ArrayList<>();
     private Stack<Memento> mementoStack = new Stack<>();
@@ -23,6 +27,9 @@ public class Scene {
         return savedShapes.get(index);
     }
 
+    /***
+     * Pushes the current list of shapes onto the stack
+     */
     public void saveToMemento() {
         mementoStack.push(new Scene.Memento(getSavedShapes()));
     }
@@ -31,6 +38,9 @@ public class Scene {
         return mementoStack;
     }
 
+    /***
+     * Set's the current list of shapes to the last previous saved list
+     */
     public void getMemento() {
         setSavedShapes(mementoStack.pop().shapeList);
     }
@@ -56,7 +66,10 @@ public class Scene {
     }
 
 
-
+    /***
+     * Assigns and saves previous content within the stack
+     * containing the list of shapes
+     */
     public class Memento {
         List<Shape> shapeList;
 

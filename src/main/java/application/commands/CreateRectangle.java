@@ -13,6 +13,9 @@ public class CreateRectangle implements ICommand {
         this.y = Integer.parseInt(input[3]);
     }
 
+    /***
+     * Creates a new shape
+     */
     @Override
     public void execute() {
         this.shape = new Rectangle(getX(), getY());

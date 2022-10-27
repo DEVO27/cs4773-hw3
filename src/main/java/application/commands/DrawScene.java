@@ -11,6 +11,9 @@ public class DrawScene implements ICommand {
         this.shapes = shapes;
     }
 
+    /***
+     * Print's the list of shapes
+     */
     @Override
     public void execute() {
         for (Shape shape : shapes) {

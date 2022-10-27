@@ -11,6 +11,9 @@ public class CreateCircle implements ICommand {
         this.radius = Integer.parseInt(input[2]);
     }
 
+    /**
+     * Creates a new circle shape
+     */
     @Override
     public void execute() {
         this.shape = new Circle(getRadius());

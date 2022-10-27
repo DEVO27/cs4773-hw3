@@ -5,7 +5,7 @@ import application.shape.Colors;
 import application.shape.Shape;
 
 public class ChangeColor implements ICommand {
-    private Shape shape;
+    private final Shape shape;
     private int index;
     private SelectShape selectShape;
     private Scene scene;
@@ -23,6 +23,9 @@ public class ChangeColor implements ICommand {
         this.shape = shape;
     }
 
+    /***
+     * Changes the current shape color IFF select was a previous command
+     */
     @Override
     public void execute() {
         if (Boolean.TRUE.equals(selectShape.getActive())) {
@@ -33,6 +36,9 @@ public class ChangeColor implements ICommand {
         }
     }
 
+    /***
+     * Sets current shape color to its last previous saved color
+     */
     @Override
     public void unExecute() {
         shape.getMemento();
